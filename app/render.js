@@ -1,5 +1,5 @@
-export default function render(viewFn, status = 200) {
-    const content = viewFn();
+export default function render(viewFn, data, status = 200) {
+    const content = viewFn(data);
     const headers = new Headers();
     headers.set("content-type", "text/html");
     const html = `
@@ -16,7 +16,7 @@ export default function render(viewFn, status = 200) {
                     <h1>My web application</h1>
                     <nav>
                         <a href="/">home</a>
-                        <a href="/about">about</a>
+                        <a href="/items">items</a>
                     </nav>
                 </header>
                 <main>
