@@ -9,7 +9,7 @@ export default function render(viewFn, status = 200) {
                 <title>My web application</title>
                 <meta charset="utf-8">
                 <link rel="icon" href="/assets/some-icon.svg">
-                <link rel="stylesheet" href="/assets/stylesheet.css">
+                <link rel="stylesheet" href="/assets/style.css">
             </head>
             <body>
                 <header>
