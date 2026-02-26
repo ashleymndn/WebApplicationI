@@ -1,4 +1,5 @@
-export default function render(content, status = 200) {
+export default function render(viewFn, status = 200) {
+    const content = viewFn();
     const headers = new Headers();
     headers.set("content-type", "text/html");
     const html = `
@@ -18,7 +19,12 @@ export default function render(content, status = 200) {
                         <a href="/about">about</a>
                     </nav>
                 </header>
-            ${content}
+                <main>
+                ${content}
+                </main>
+                <footer>
+                    <p>&copy application developers</p>
+                </footer>
             </body>
         </html>
     `
