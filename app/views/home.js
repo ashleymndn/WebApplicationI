@@ -1,6 +1,8 @@
 export function homeView() {
     return`
-        <h2>Home Page</h2>
+    <section aria-labelledby="home-heading">
+        <h2 id="home-heading">Home Page</h2>
         <p>Hello, World</p>
+    </section>
     `
 }

@@ -10,10 +10,12 @@ export default function render(viewFn, data, status = 200) {
                 <meta charset="utf-8">
                 <link rel="icon" href="/assets/some-icon.svg">
                 <link rel="stylesheet" href="/assets/style.css">
+                <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
             </head>
             <body>
                 <header>
-                    <h1>My web application</h1>
+                    <h1>My Web Application</h1>
                     <nav>
                         <a href="/">home</a>
                         <a href="/about">about</a>
