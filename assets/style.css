@@ -92,3 +92,19 @@ aside#flash {
         translate: none;
     }
 }
+
+form.auth {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+    place-self: center;
+    padding: 1rem;
+
+    button {
+        grid-column: 1;
+    }
+}
+
+.center {
+    text-align: center;
+}

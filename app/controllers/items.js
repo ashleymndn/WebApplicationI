@@ -1,7 +1,7 @@
 import { createItem, getItems } from "../models/items.js";
 import render from "../render.js";
 import { itemsView } from "../views/items.js";
-import { setFlash } from "../flash.js";
+import redirect from "../redirect.js";
 
 
 export function itemsController({ request }) {
@@ -19,7 +19,6 @@ export async function addItemController({ request }) {
     }
     createItem(newItem);
     const headers = new Headers();
-    setFlash(headers, `added '${newItem}' to the list`);
-    headers.set('location', '/items');
-    return new Response(null, { headers, status: 303 });
+    return redirect(headers, '/items', `added '${newItem}' to the list`)
+
 }

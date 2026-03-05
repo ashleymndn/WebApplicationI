@@ -30,6 +30,7 @@ export default function render(viewFn, data, request, status = 200) {
                         <a href="/">home</a>
                         <a href="/about">about</a>
                         <a href="/items">items</a>
+                        <a href="/login">sign in</a>
                     </nav>
                 </header>
                 <main>
