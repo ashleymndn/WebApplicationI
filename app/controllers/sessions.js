@@ -1,5 +1,7 @@
 import redirect from "../redirect.js";
 import render from "../render.js";
+import { userSchemaLogin } from "../schema/user.js";
+import { validateSchema } from "../validation.js";
 import { loginFormView } from "../views/auth.js";
 
 export function loginFormController({ request }) {
@@ -8,6 +10,12 @@ export function loginFormController({ request }) {
 
 export async function addSessionController({ request }) {
     const formData = await request.formData();
+
+    const validation = validateSchema(formData, userSchemaLogin);
+    if (!validation.isValid) {
+        return render(loginFormView, validation, request, 400);
+    }
+
     const email = formData.get('email');
     const _password = formData.get('password');
 

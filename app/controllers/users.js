@@ -1,5 +1,7 @@
 import redirect from "../redirect.js";
 import render from "../render.js";
+import { userSchemaRegister } from "../schema/user.js";
+import { validateSchema } from "../validation.js";
 import { registrationFormView } from "../views/auth.js";
 
 export function registrationFormController({ request }) {
@@ -8,6 +10,12 @@ export function registrationFormController({ request }) {
 
 export async function addUserController({ request }) {
     const formData = await request.formData();
+
+    const {isValid, errors} = validateSchema(formData, userSchemaRegister);
+    if (!isValid) {
+        return render(registrationFormView, { errors }, request, 400);
+    }
+
     const firstname = formData.get('firstname');
     const lastname = formData.get('lastname');
     const email = formData.get('email');
@@ -16,7 +24,7 @@ export async function addUserController({ request }) {
 
     // validate the incoming data here
     const validUser = true;
-    
+
     const headers = new Headers();
     if (validUser) {
         //create the user record here
