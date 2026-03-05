@@ -5,6 +5,6 @@ export function getItems() {
 }
 
 export function createItem(newItem) {
-    db.prepare("INSERT INTO items (label) VALUES (:new-item)").run({newItem});
+    db.prepare("INSERT INTO items (label) VALUES (:newItem)").run({newItem});
 
 }
