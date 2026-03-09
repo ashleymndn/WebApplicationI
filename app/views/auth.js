@@ -1,5 +1,21 @@
-export function loginFormView({ errors }) {
+import { escape } from "@std/html/entities";
+
+export function loginFormView({ errors = { email: {} , password: {}} }) {
     console.log(errors);
+    
+    const {email, password} = Object.fromEntries(Object.keys(errors).map(key => {
+        const { error, value, message } = errors[key] || {};
+        return [key, {
+            value: value ? `value="${escape(value)}"` : "",
+            message: error ?`<p class="error">${escape(message)}</p>` : ""
+        }];
+    }));
+    
+    console.log(email);
+    console.log(password);
+    
+    
+    
     return `
     <section aria-labelledby="login-heading" class="center">
         <h2 id="login-heading">Sign in to your account</h2>
@@ -7,10 +23,11 @@ export function loginFormView({ errors }) {
         <form method="POST" class="auth">
             <label for="loginS" class="center">Login</label>
             <br>
-            <input id="email" name="email" placeholder="Email">
-            <label for="email" class="center"></label>
-            <input id="password" name="password" type="password" placeholder="Password">
-            <label for="password" class="center"></label>
+            <div class="Form_Item">       
+            <input id="email" name="email" placeholder="Email"${email.value}><br>
+            ${email.message}
+            <input id="password" name="password" type="password" placeholder="Password"${password.value}><br>
+            ${password.message}
             <button>Sign in</button>
         </form>
     </section>
@@ -27,16 +44,11 @@ export function registrationFormView({ errors } ) {
         <form method="POST" class="auth">
             <label for="signup" class="center">Sign up</label>
             <br>   
-            <input id="firstname" name="firstname" placeholder="First Name">
-            <label for="firstname" class="center"></label>
-            <input id="lastname" name="lastname" placeholder="Last Name">
-            <label for="lastname" class="center"></label>
-            <input id="email" name="email" placeholder="Email" >
-            <label for="email" class="center"></label>
-            <input id="password" name="password" type="password" placeholder="Password">
-            <label for="password" class="center"></label>
+            <input id="text" name="firstname" placeholder="First Name"><br>
+            <input id="text" name="lastname" placeholder="Last Name"><br>
+            <input id="email" name="email" placeholder="Email" ><br>
+            <input id="password" name="password" type="password" placeholder="Password"><br>
             <input id="password" name="password" type="password" placeholder="Re-Enter Password">
-            <label for="password" class="center"></label>
             <button>Create my Account</button>
         </form>
     </section>

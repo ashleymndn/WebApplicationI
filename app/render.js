@@ -16,29 +16,40 @@ export default function render(viewFn, data, request, status = 200) {
         <!DOCTYPE html>
         <html lang="en">
             <head>
-                <title>My web application</title>
+                <title>Rindo Tea</title>
                 <meta charset="utf-8">
                 <link rel="icon" href="/assets/some-icon.svg">
                 <link rel="stylesheet" href="/assets/style.css">
                 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
             </head>
+            
             <body>
                 <header>
-                    <h1>My Web Application</h1>
-                    <nav>
-                        <a href="/">home</a>
-                        <a href="/about">about</a>
-                        <a href="/items">items</a>
-                        <a href="/login">sign in</a>
-                    </nav>
+                    <a href="/"><img src="/assets/images/logo.png" class="logo_img"></a>
+                    
+                    <div class="dropdown">
+
+                        <button class="dropbtn">☰ Menu</button>
+                        
+                        <ul class="topnav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/items">Items</a></li>
+                        <li><a href="/login">Account</a></li>
+                        <li><a href="/cart">Cart</a></li>
+                        <ul>
+
+                </div>
+                
                 </header>
+    
                 <main>
                 ${flashMessage}
                 ${content}
                 </main>
+
                 <footer>
-                    <p>&copy application developers</p>
+                    <p>&copy 2026, Rindo Tea. All Rights Reserved.</p>
                 </footer>
             </body>
         </html>
