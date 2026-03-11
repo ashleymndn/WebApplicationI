@@ -1,19 +1,7 @@
-import { escape } from "@std/html/entities";
+import { fragments } from "./errors.js";
 
-export function loginFormView({ errors = { email: {} , password: {}} }) {
-    console.log(errors);
-    
-    const {email, password} = Object.fromEntries(Object.keys(errors).map(key => {
-        const { error, value, message } = errors[key] || {};
-        return [key, {
-            value: value ? `value="${escape(value)}"` : "",
-            message: error ?`<p class="error">${escape(message)}</p>` : ""
-        }];
-    }));
-    
-    console.log(email);
-    console.log(password);
-    
+export function loginFormView({ errors = { email: {} , password: {}} }) {   
+    const {email, password} =  fragments(errors); 
     
     
     return `
@@ -34,8 +22,8 @@ export function loginFormView({ errors = { email: {} , password: {}} }) {
     `
 }
 
-export function registrationFormView({ errors } ) {
-    console.log(errors);
+export function registrationFormView({ errors = { firstname: {} , lastname: {}, email: {}, password: {}}} ) {
+    const {firstname, lastname, email, password} =  fragments(errors);
     
     return `
     <section aria-labelledby="register-heading" class="center">
@@ -44,13 +32,18 @@ export function registrationFormView({ errors } ) {
         <form method="POST" class="auth">
             <label for="signup" class="center">Sign up</label>
             <br>   
-            <input id="text" name="firstname" placeholder="First Name"><br>
-            <input id="text" name="lastname" placeholder="Last Name"><br>
-            <input id="email" name="email" placeholder="Email" ><br>
-            <input id="password" name="password" type="password" placeholder="Password"><br>
-            <input id="password" name="password" type="password" placeholder="Re-Enter Password">
+            <input id="text" name="firstname" placeholder="First Name"${firstname.value} required minLength="2"><br>
+            ${firstname.message}
+            <input id="text" name="lastname" placeholder="Last Name"${password.value} required required minLength="2"><br>
+            ${lastname.message}
+            <input id="email" name="email" placeholder="Email"${email.value} required minLength="5"><br>
+            ${email.message}
+            <input id="password" name="password" type="password" placeholder="Password"${password.value} required minLength="8"><br>
+            ${password.message}
+            <input id="confirm" name="password" type="password" placeholder="Password">
             <button>Create my Account</button>
         </form>
+        <script type="module" src="/assets/js/confirmPassword.js"></script>
     </section>
     `
 }
