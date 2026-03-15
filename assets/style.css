@@ -4,6 +4,7 @@ body {
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
     font-family: 'Zen Kaku Gothic New', system-ui;
+    padding-inline: 2rem;
 
     header,
     main,
@@ -147,6 +148,50 @@ h1 {
 }
 
 
+.shop-layout{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:30px;
+    padding:20px;
+}
+
+.filters{
+    border-right:1px solid #ddd;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.product{
+    border:1px solid #ddd;
+    padding:15px;
+    text-align:center;
+}
+
+.product img{
+    width: 70%;
+    height: 400px;
+    object-fit:cover;
+}
+
+.buttoncontainer {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+}
+
+.addtocart {
+    background-color: #2f3642; /* Green */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
 
 button,
 input {
@@ -154,8 +199,8 @@ input {
 }
 
 aside#flash {
-    background: orangered;
-    color: white;
+    background: rgb(232, 217, 185);
+    color: rgb(0, 0, 0);
     position: fixed;
     top: 5rem;
     right: 0;

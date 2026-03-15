@@ -2,7 +2,8 @@
 
   "tasks": {
     "serve":"deno --watch --allow-env --allow-ffi --allow-net=0.0.0.0:8000 --allow-read=./assets,C:/Users/Ashley/AppData/Local/deno/plug main.js",
-    "db:create":"deno --allow-env --allow-ffi --allow-read=C:/Users/Ashley/AppData/Local/deno/plug ./app/tasks/db-create.js"
+    "db:create":"deno --allow-env --allow-ffi --allow-read=C:/Users/Ashley/AppData/Local/deno/plug ./app/tasks/db-create.js",
+    "db:products":"deno --allow-env --allow-ffi --allow-read=C:/Users/Ashley/AppData/Local/deno/plug ./app/tasks/db-products.js"
 
   },
 
