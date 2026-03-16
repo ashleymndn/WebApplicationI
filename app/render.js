@@ -1,9 +1,25 @@
 import { escape } from "@std/html/entities";
 import { getFlash } from "./flash.js";
+import { currentSession } from "./auth.js";
 
 export default function render(viewFn, data, request, status = 200) {
     const content = viewFn(data);
     const headers = new Headers();
+
+    const session = currentSession(request.headers);
+    const footerMessage = session 
+        ? `logged in as '${session.email}'` : '';
+    const links = `
+        ${session 
+            ? `
+                <ul class="topnav">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><form method="POST" action="/logout"><button>Logout</button></form></li>
+                </ul>
+                `
+            :   `<a href="/login">Login</a>`}
+    `
     
     const flash = getFlash(request.headers, headers);
     const flashMessage = flash ? `
@@ -34,10 +50,8 @@ export default function render(viewFn, data, request, status = 200) {
                         <ul class="topnav">
                         <li><a href="/">Home</a></li>
                         <li><a href="/about">About</a></li>
-                        <li><a href="/items">Items</a></li>
-                        <li><a href="/login">Account</a></li>
-                        <li><a href="/cart">Cart</a></li>
-                        <ul>
+                        <li>${links}</li>
+                        </ul>
 
                 </div>
                 
@@ -49,6 +63,7 @@ export default function render(viewFn, data, request, status = 200) {
                 </main>
 
                 <footer>
+                    <p>${footerMessage}</p>
                     <p>&copy 2026, Rindo Tea. All Rights Reserved.</p>
                 </footer>
             </body>

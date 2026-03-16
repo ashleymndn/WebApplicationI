@@ -19,6 +19,17 @@ export async function createUser({ firstname, lastname, email, password }) {
 
 }
 
+function getUser(email) {
+    return db.prepare("SELECT * FROM users WHERE email=:email").get({ email });
+}
+
+export async function checkCredentials({ email, password }) {
+    const user = getUser(email);
+    if(!user) return false;
+    const hashed = await hashPassword(password);
+    return user.hashedPassword == hashed;
+}
+
 async function hashPassword(password) {
     const inputBytes = new TextEncoder().encode(password);
     const key = await crypto.subtle.importKey("raw", inputBytes, "PBKDF2", false, ['deriveBits']);

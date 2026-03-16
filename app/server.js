@@ -1,8 +1,10 @@
 import { aboutController } from "./controllers/about.js";
+import { cartController } from "./controllers/cart.js";
+import { dashboardController } from "./controllers/dashboard.js";
 import { homeController } from "./controllers/home.js";
 import { addItemController, itemsController } from "./controllers/items.js";
 import { notFoundController } from "./controllers/notFound.js";
-import { addSessionController, loginFormController } from "./controllers/sessions.js";
+import { addSessionController, deleteSessionController, loginFormController } from "./controllers/sessions.js";
 import { staticController } from "./controllers/static.js";
 import { addUserController, registrationFormController } from "./controllers/users.js";
 
@@ -47,6 +49,18 @@ export default function server(request) {
 
     if (url.pathname == "/register" && request.method == "POST") {
         return addUserController({ request });
+    }
+
+    if (url.pathname == "/dashboard" && request.method == "GET") {
+        return dashboardController({ request });
+    }
+
+    if (url.pathname == "/cart" && request.method == "GET") {
+        return cartController({ request });
+    }
+
+    if (url.pathname == "/logout" && request.method == "POST") {
+        return deleteSessionController({ request });
     }
 
 

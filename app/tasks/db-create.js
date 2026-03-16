@@ -1,9 +1,9 @@
 import { db } from "../db.js";
 
 db.exec(`
-    DROP TABLE IF EXISTS items;
-    DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS sessions;
+    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS items;
     DROP TABLE IF EXISTS products;
 
     CREATE TABLE users (
