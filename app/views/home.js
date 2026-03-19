@@ -2,17 +2,18 @@ export function homeView({ products }) {
     const listProducts = products.map(products => `
 
         <div class="product">
-            <img src="/assets/images/${products.Image}" alt="${products.ProductName}">
-            <h3>${products.ProductName}</h3>
-            <p>${products.Price} AED</p>
+            <img src="/assets/images/${products.image}" alt="${products.productName}">
+            <h3>${products.productName}</h3>
+            <p>${products.price} AED</p>
+            
 
             <form method="POST" action="/cart">
-                <input type="hidden" name="productId" value="${products.ProductID}">
-            </form>
-            <div class="buttoncontainer">
+                <input type="hidden" name="productId" value="${products.productId}">
+                <div class="buttoncontainer">
                     <button type="submit" class="addtocart">Add to Cart</button>
                 </div>
-            
+            </form>
+        
         </div>
 
     `).join("");

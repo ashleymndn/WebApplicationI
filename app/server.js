@@ -59,6 +59,10 @@ export default function server(request) {
         return cartController({ request });
     }
 
+    if (url.pathname == "/cart" && request.method == "POST") {
+        return cartController({ request });
+    }
+
     if (url.pathname == "/logout" && request.method == "POST") {
         return deleteSessionController({ request });
     }

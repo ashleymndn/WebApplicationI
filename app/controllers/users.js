@@ -1,4 +1,5 @@
 import { login } from "../auth.js";
+import { ensureCartForUser } from "../models/cart.js";
 import { createUser } from "../models/users.js";
 import redirect from "../redirect.js";
 import render from "../render.js";
@@ -19,6 +20,7 @@ export async function addUserController({ request }) {
     //create the user record here
     await createUser(validated);
     const headers = new Headers();
+    ensureCartForUser(validated.email);
     login(headers, validated.email);
     return redirect(headers, "/", `User with '${validated.email}' account created`)
 

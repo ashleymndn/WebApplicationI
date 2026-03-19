@@ -8,6 +8,14 @@ export function minLength(min) {
     }
 }
 
+export function maxLength(max) {
+    return (name, value) => {
+        if(value.length > max) return `${name} must not exceed ${max} characters`;
+    }
+}
+
+
+
 export function validateField(name, value, validators) {
     for (const validator of validators) {
         const error = validator(name, value);

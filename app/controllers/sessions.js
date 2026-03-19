@@ -1,4 +1,5 @@
 import { currentSession, login, logout } from "../auth.js";
+import { ensureCartForUser } from "../models/cart.js";
 import { checkCredentials } from "../models/users.js";
 import redirect from "../redirect.js";
 import render from "../render.js";
@@ -24,6 +25,7 @@ export async function addSessionController({ request }) {
         return redirect(headers, "/login", "invalid credentials");
     }
     login(headers, validated.email);
+    ensureCartForUser(validated.email);
     return redirect(headers, "/", `Logged in as '${validated.email}'`)   
 }
 

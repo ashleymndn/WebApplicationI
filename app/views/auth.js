@@ -1,7 +1,7 @@
 import { fragments } from "./errors.js";
 
 export function loginFormView({ errors = { email: {} , password: {}} }) {   
-    const {email, password} =  fragments(errors); 
+    const {email, password} =  fragments(errors);
     
     
     return `

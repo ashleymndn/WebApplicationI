@@ -2,9 +2,12 @@ import { db } from "../db.js";
 
 db.exec(`
     DROP TABLE IF EXISTS sessions;
+    DROP TABLE IF EXISTS carts;
+    DROP TABLE IF EXISTS cart_items;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS items;
     DROP TABLE IF EXISTS products;
+
 
     CREATE TABLE users (
         email TEXT PRIMARY KEY,
@@ -25,11 +28,11 @@ db.exec(`
     );
 
     CREATE TABLE products (
-        ProductID INTEGER PRIMARY KEY,
-        ProductName TEXT NOT NULL,
-        Price INTEGER NOT NULL,
-        Stock INTEGER NOT NULL,
-        Image TEXT
+        productId INTEGER PRIMARY KEY,
+        productName TEXT NOT NULL,
+        price INTEGER NOT NULL,
+        stock INTEGER NOT NULL,
+        image TEXT
     );
 
     INSERT INTO products (ProductID, ProductName, Price, Stock, Image) VALUES
@@ -58,4 +61,23 @@ db.exec(`
         ('apples'),
         ('bananas'),
         ('cherries');
+
+    
+
+    CREATE TABLE carts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE NOT NULL,
+    FOREIGN KEY (email) REFERENCES users(email)
+    );
+
+    CREATE TABLE cart_items (
+        id INTEGER PRIMARY KEY,
+        cartId INTEGER NOT NULL,
+        productId INTEGER NOT NULL,
+        quantity INTEGER NOT NULL DEFAULT 1,
+
+        FOREIGN KEY (cartId) REFERENCES carts(id),
+        FOREIGN KEY (productId) REFERENCES products(productId)
+    )
+
 `)
