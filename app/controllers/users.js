@@ -7,19 +7,19 @@ import { userSchemaRegister } from "../schema/user.js";
 import { validateSchema } from "../validation.js";
 import { registrationFormView } from "../views/auth.js";
 
-export function registrationFormController({ request }) {
-    return render(registrationFormView, {}, request);
+export function registrationFormController(ctx) {
+    return render(registrationFormView, {}, ctx);
 }
 
-export async function addUserController({ request }) {
+export async function addUserController(ctx) {
+    const { request, headers } = ctx;
     const formData = await request.formData();
     const {isValid, errors, validated} = validateSchema(formData, userSchemaRegister);
     if (!isValid) {
-        return render(registrationFormView, { errors }, request, 400);
+        return render(registrationFormView, { errors }, ctx, 400);
     }
     //create the user record here
     await createUser(validated);
-    const headers = new Headers();
     ensureCartForUser(validated.email);
     login(headers, validated.email);
     return redirect(headers, "/", `User with '${validated.email}' account created`)

@@ -1,5 +1,4 @@
 import { db } from "../db.js";
-import { currentSession } from "../auth.js";
 import { getProductById } from "../models/products.js";
 import {
     getCartByEmail,
@@ -13,23 +12,19 @@ import redirect from "../redirect.js";
 import render from "../render.js";
 import { cartView } from "../views/cart.js";
 
-export async function cartController({ request }) {
-    const session = currentSession(request.headers);
+export async function cartController(ctx) {
+    const { request, session, headers } = ctx;
 
     if (!session) {
-        const headers = new Headers();
         return redirect(headers, "/login", "Sign in to gain access");
     }
 
     const email = session.email;
-    
 
     // ADD TO CART
     if (request.method === "POST") {
     const formData = await request.formData();
     const action = formData.get("action");
-
-    const headers = new Headers();
 
     // REMOVE ITEM
     if (action === "remove") {
@@ -70,5 +65,5 @@ export async function cartController({ request }) {
 
     return render(cartView, {
         cart: items
-    }, request);
+    }, ctx);
 }
