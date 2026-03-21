@@ -4,6 +4,8 @@ db.exec(`
     DROP TABLE IF EXISTS sessions;
     DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS cart_items;
+    DROP TABLE IF EXISTS user_phones;
+    DROP TABLE IF EXISTS user_addresses;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS items;
     DROP TABLE IF EXISTS products;
@@ -35,6 +37,20 @@ db.exec(`
         image TEXT
     );
 
+    CREATE TABLE user_phones (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+    );
+
+    CREATE TABLE user_addresses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL,
+        address TEXT NOT NULL,
+        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+    );  
+
     INSERT INTO products (ProductID, ProductName, Price, Stock, Image) VALUES
         (1, 'Matcha', 65, 18, 'matcha.jpg'),
 
@@ -65,9 +81,9 @@ db.exec(`
     
 
     CREATE TABLE carts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT UNIQUE NOT NULL,
-    FOREIGN KEY (email) REFERENCES users(email)
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE NOT NULL,
+        FOREIGN KEY (email) REFERENCES users(email)
     );
 
     CREATE TABLE cart_items (

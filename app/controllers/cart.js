@@ -24,7 +24,7 @@ export async function cartController({ request }) {
     const email = session.email;
     
 
-    // ✅ ADD TO CART
+    // ADD TO CART
     if (request.method === "POST") {
     const formData = await request.formData();
     const action = formData.get("action");
@@ -63,7 +63,7 @@ export async function cartController({ request }) {
     return redirect(headers, "/cart");
 }
 
-    // ✅ SHOW CART
+    // SHOW CART
     const cart = getCartByEmail(email);
 
     const items = cart ? getCartItems(cart.id) : [];
