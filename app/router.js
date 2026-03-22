@@ -4,11 +4,11 @@ export default class ApplicationRouter {
         this.middleware = [];
     }
 
-    register(method, pattern, handler) {
+    register(method, pattern, handler, ...middleware) {
         if(typeof pattern == "string") {
             pattern = new URLPattern({pathname: pattern});
         }
-        this.routes.push({ method, pattern, handler });
+        this.routes.push({ method, pattern, handler, middleware });
     }
 
     get(...args) {
@@ -35,8 +35,8 @@ export default class ApplicationRouter {
         const route = this.routes.find(({method, pattern}) => {
             return request.method == method && pattern.test(request.url);
         });
-
-        return this.chain(ctx, this.middleware, route.handler);
+        const middleware = [...this.middleware, ...route.middleware];
+        return this.chain(ctx, middleware, route.handler);
         // return route.handler({ request });
         
     }

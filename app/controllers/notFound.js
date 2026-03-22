@@ -2,5 +2,6 @@ import render from "../render.js";
 import { notFoundView } from "../views/notFound.js";
 
 export function notFoundController(ctx) {
-    return render(notFoundView, {}, ctx, 404);
+    ctx.status = 404;
+    return render(notFoundView, {}, ctx);
 }

@@ -12,6 +12,9 @@ export function login(headers, email) {
         value: sessionId,
         path: "/"
     })
+    console.log("created session");
+    
+    
 }
 
 export function currentSession(requestHeaders) {

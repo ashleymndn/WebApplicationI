@@ -9,12 +9,12 @@ export function loginFormView({ errors = { email: {} , password: {}} }) {
         <h2 id="login-heading">Sign in to your account</h2>
         <p>Don't have an account? <a href="/register">Register Here</a> </p>
         <form method="POST" class="auth">
-            <label for="loginS" class="center">Login</label>
+            <label for="login" class="center">Login</label>
             <br>
             <div class="Form_Item">       
-            <input id="email" name="email" placeholder="Email"${email.value}><br>
+            <input id="email" name="email" placeholder="Email"${email.value} required><br>
             ${email.message}
-            <input id="password" name="password" type="password" placeholder="Password"${password.value}><br>
+            <input id="password" name="password" type="password" placeholder="Password"${password.value} required><br>
             ${password.message}
             <button>Sign in</button>
         </form>
@@ -34,13 +34,13 @@ export function registrationFormView({ errors = { firstname: {} , lastname: {}, 
             <br>   
             <input id="text" name="firstname" placeholder="First Name"${firstname.value} required minLength="2"><br>
             ${firstname.message}
-            <input id="text" name="lastname" placeholder="Last Name"${password.value} required required minLength="2"><br>
+            <input id="text" name="lastname" placeholder="Last Name"${password.value} required minLength="2"><br>
             ${lastname.message}
             <input id="email" name="email" placeholder="Email"${email.value} required minLength="5"><br>
             ${email.message}
             <input id="password" name="password" type="password" placeholder="Password"${password.value} required minLength="8"><br>
             ${password.message}
-            <input id="confirm" name="password" type="password" placeholder="Password">
+            <input id="confirm" name="password" type="confirm_password" placeholder="Password">
             <button>Create my Account</button>
         </form>
         <script type="module" src="/assets/js/confirmPassword.js"></script>

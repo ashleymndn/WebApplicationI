@@ -1,4 +1,5 @@
 import { currentSession } from "../auth.js";
+import redirect from "../redirect.js";
 
 export function withSession(ctx, next) {
     const { request } = ctx;
@@ -6,4 +7,26 @@ export function withSession(ctx, next) {
     console.log(ctx.session ? `logged in as ${ctx.session.email}` : "no session found");
     return next(ctx);
     
+}
+
+export function requiresSession(ctx, next) {
+    const { session, headers } = ctx;
+    if (!session) {
+        console.log("Access denied to protected route");     
+        return redirect(headers, "/login", "Sign in to gain access")
+    }
+    console.log("Access granted");
+    
+    return next(ctx);
+}
+
+export function excludesSession(ctx, next) {
+    const { session, headers } = ctx;
+    if (session) {
+        console.log("Access denied to logged in user");     
+        return redirect(headers, "/", "Sign out to gain access")
+    }
+    console.log("Access granted");
+    
+    return next(ctx);
 }
