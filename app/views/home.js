@@ -3,17 +3,21 @@ export function homeView({ products }) {
 
         <div class="product">
             <img src="/assets/images/${products.image}" alt="${products.productName}">
-            <h3>${products.productName}</h3>
-            <p>${products.price} AED</p>
+            <div class="product-info">
+                <br>
+                <h3>${products.productName}</h3>
+                <p>${products.price} AED</p>
+                <br>
             
 
-            <form method="POST" action="/cart">
-                <input type="hidden" name="productId" value="${products.productId}">
-                <div class="buttoncontainer">
-                    <button type="submit" class="addtocart">Add to Cart</button>
-                </div>
-            </form>
-        
+                <form class="add-product" method="POST" action="/cart">
+                    <input type="hidden" name="productId" value="${products.productId}">
+                    <div class="buttoncontainer">
+                        <button type="submit" class="addtocart">Add to Cart</button>
+                    </div>
+                </form>
+                
+            </div>
         </div>
 
     `).join("");

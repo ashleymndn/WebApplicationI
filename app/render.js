@@ -31,7 +31,7 @@ export default function render(viewFn, data, ctx) {
             <head>
                 <title>Rindo Tea</title>
                 <meta charset="utf-8">
-                <link rel="icon" href="/assets/some-icon.svg">
+                <link rel="icon" href="/assets/logoicon.png">
                 <link rel="stylesheet" href="/assets/style.css">
                 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
             </head>
@@ -59,9 +59,37 @@ export default function render(viewFn, data, ctx) {
                 ${content}
                 </main>
 
-                <footer>
+
+                <footer class="footer">
+                <div class="footer-container">
+                    <div class="footer-col">
+                    <h3>Rindo Tea</h3>
+                    <p>We serve a variety of</p>
+                    <p>teas from across the world.</p>
+                    </div>
+
+                    <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/cart">Cart</a></li>
+                    </ul>
+                    </div>
+
+                    <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p>321 Tea Garden Lane</p>
+                    <p>contact@rindotea.com</p>
+                    <p>(265) 345-6741</p>
+                    </div>
+                
+                </div>
+
+                <div class="footer-bottom">
                     <p>${footerMessage}</p>
                     <p>&copy 2026, Rindo Tea. All Rights Reserved.</p>
+                </div>
                 </footer>
             </body>
         </html>

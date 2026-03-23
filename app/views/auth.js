@@ -40,7 +40,7 @@ export function registrationFormView({ errors = { firstname: {} , lastname: {}, 
             ${email.message}
             <input id="password" name="password" type="password" placeholder="Password"${password.value} required minLength="8"><br>
             ${password.message}
-            <input id="confirm" name="password" type="confirm_password" placeholder="Password">
+            <input id="confirm" name="confirm_password" type="password" placeholder="Password">
             <button>Create my Account</button>
         </form>
         <script type="module" src="/assets/js/confirmPassword.js"></script>
