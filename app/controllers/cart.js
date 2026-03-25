@@ -11,6 +11,7 @@ import {
 import redirect from "../redirect.js";
 import render from "../render.js";
 import { cartView } from "../views/cart.js";
+import { getUserDetailsByEmail } from "../models/userDetails.js";
 
 export async function cartController(ctx) {
     const { request, session, headers } = ctx;
@@ -60,10 +61,11 @@ export async function cartController(ctx) {
 
     // SHOW CART
     const cart = getCartByEmail(email);
-
     const items = cart ? getCartItems(cart.id) : [];
+    const addresses = getUserDetailsByEmail(email) || [];
 
     return render(cartView, {
-        cart: items
+        cart: items,
+        addresses 
     }, ctx);
 }

@@ -25,7 +25,7 @@ export function homeView({ products }) {
     return `
     <section aria-labelledby="home-heading">
 
-        <div class="container">
+        <div class="container-footer">
             <h3>Explore our selection of teas,
             sourced from different tea farmers and artisans.</h3>
             <img class="hero_img" src="/assets/images/bg1.webp">

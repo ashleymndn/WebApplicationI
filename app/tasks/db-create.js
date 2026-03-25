@@ -1,14 +1,14 @@
 import { db } from "../db.js";
 
 db.exec(`
-    DROP TABLE IF EXISTS sessions;
-    DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS cart_items;
-    DROP TABLE IF EXISTS user_phones;
-    DROP TABLE IF EXISTS user_addresses;
-    DROP TABLE IF EXISTS users;
-    DROP TABLE IF EXISTS items;
+    DROP TABLE IF EXISTS carts;
+    DROP TABLE IF EXISTS user_details;
     DROP TABLE IF EXISTS products;
+    DROP TABLE IF EXISTS items;
+    DROP TABLE IF EXISTS sessions;
+    DROP TABLE IF EXISTS users;
+
 
 
     CREATE TABLE users (
@@ -37,21 +37,35 @@ db.exec(`
         image TEXT
     );
 
-    CREATE TABLE user_phones (
+    CREATE TABLE user_details (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL,
         phone TEXT NOT NULL,
+        address TEXT NOT NULL,
+        city TEXT NOT NULL,
+        country TEXT NOT NULL,
+        isDefault INTEGER DEFAULT 0,
         FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
     );
 
-    CREATE TABLE user_addresses (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT NOT NULL,
-        address TEXT NOT NULL,
-        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
-    );  
 
-    INSERT INTO products (ProductID, ProductName, Price, Stock, Image) VALUES
+    CREATE TABLE carts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT UNIQUE NOT NULL,
+        FOREIGN KEY (email) REFERENCES users(email)
+    );
+
+    CREATE TABLE cart_items (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        cartId INTEGER NOT NULL,
+        productId INTEGER NOT NULL,
+        quantity INTEGER NOT NULL DEFAULT 1,
+
+        FOREIGN KEY (cartId) REFERENCES carts(id),
+        FOREIGN KEY (productId) REFERENCES products(productId)
+    );
+
+    INSERT INTO products (productId, productName, price, stock, image) VALUES
         (1, 'Matcha', 65, 18, 'matcha.jpg'),
 
         (2, 'Longjing (Dragon Well)', 45, 24, 'longjing.jpg'),
@@ -71,8 +85,6 @@ db.exec(`
         (14, 'Assam', 28, 26, 'assam.png'),
         (15, 'Ceylon Black Tea', 30, 23, 'blackceylon.png');
 
-    
-
     INSERT INTO items (label) VALUES
         ('apples'),
         ('bananas'),
@@ -80,20 +92,5 @@ db.exec(`
 
     
 
-    CREATE TABLE carts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE NOT NULL,
-        FOREIGN KEY (email) REFERENCES users(email)
-    );
-
-    CREATE TABLE cart_items (
-        id INTEGER PRIMARY KEY,
-        cartId INTEGER NOT NULL,
-        productId INTEGER NOT NULL,
-        quantity INTEGER NOT NULL DEFAULT 1,
-
-        FOREIGN KEY (cartId) REFERENCES carts(id),
-        FOREIGN KEY (productId) REFERENCES products(productId)
-    )
 
 `)

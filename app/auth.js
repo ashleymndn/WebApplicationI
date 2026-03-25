@@ -17,12 +17,29 @@ export function login(headers, email) {
     
 }
 
-export function currentSession(requestHeaders) {
-    const { sessionId } = getCookies(requestHeaders);
+export function currentSession(headers) {
+    const { sessionId } = getCookies(headers);
     return sessionId && getSession(sessionId);
 }
 
 export function logout(headers, sessionId) {
     deleteSession(sessionId);
     deleteCookie(headers, "sessionId", { path: "/" });
+}
+
+export function getUser(request) {
+    const cookie = request.headers.get("cookie");
+
+    if (!cookie) return null;
+
+    const sessionId = cookie
+        .split("; ")
+        .find(c => c.startsWith("sessionId="))
+        ?.split("=")[1];
+
+    if (!sessionId) return null;
+
+    const session = getSession(sessionId);
+
+    return session ? { email: session.email } : null;
 }

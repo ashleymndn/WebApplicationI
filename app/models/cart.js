@@ -55,6 +55,7 @@ export function updateCartItemQuantity(id, quantity) {
     `).run(quantity, id);
 }
 
+// user has cart
 export function ensureCartForUser(email) {
     let cart = getCartByEmail(email);
     if (!cart) {
@@ -63,3 +64,4 @@ export function ensureCartForUser(email) {
     }
     return cart;
 }
+
