@@ -27,6 +27,7 @@ app.use(withSession);
 //router
 app.get("/assets/*", staticController);
 app.get("/", homeController);
+app.get("/shop", homeController);
 app.get("/items", itemsController, requiresSession);
 app.post("/items", itemsController, requiresSession, validate(newItemSchema), addItemController);
 app.get("/about", aboutController);
@@ -51,61 +52,4 @@ export default function server(request) {
     return app.handle({ request });
 }
 
-    // if(url.pathname.startsWith("/assets")) {
-    //     return staticController({ request });
-    // }
-
-    // if (url.pathname == "/") {
-    //     return homeController({ request });
-    // }
-
-
-    // if (url.pathname == "/items" && request.method == "GET") {
-    //     return itemsController({ request });
-    // }
-
-    // if (url.pathname == "/items" && request.method == "POST") {
-    //     return addItemController({ request });
-    // }
-
-    // if (url.pathname == "/about"  && request.method == "GET") {
-    //     return aboutController({ request });
-    // }
-
-    // if (url.pathname == "/login" && request.method == "GET") {
-    //     return loginFormController({ request });
-    // }
-
-    // if (url.pathname == "/register" && request.method == "GET") {
-    //     return registrationFormController({ request });
-    // }
-
-    // if (url.pathname == "/login" && request.method == "POST") {
-    //     return addSessionController({ request });
-    // }
-
-    // if (url.pathname == "/register" && request.method == "POST") {
-    //     return addUserController({ request });
-    // }
-
-    // if (url.pathname == "/dashboard" && request.method == "GET") {
-    //     return dashboardController({ request });
-    // }
-
-    // if (url.pathname == "/cart" && request.method == "GET") {
-    //     return cartController({ request });
-    // }
-
-    // if (url.pathname == "/cart" && request.method == "POST") {
-    //     return cartController({ request });
-    // }
-
-    // if (url.pathname == "/logout" && request.method == "POST") {
-    //     return deleteSessionController({ request });
-    // }
-
-
-    // return notFoundController({ request });\
-
-    // }
 

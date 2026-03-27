@@ -16,6 +16,7 @@ export function cartView({ cart = {}, addresses = {} }) {
       )
     : `<p>Cart is empty</p>`;
 
+
   const addressList = addresses.length
     ? addresses.map(addr => `
       <div class="address-card">
@@ -31,7 +32,9 @@ export function cartView({ cart = {}, addresses = {} }) {
               <span>${addr.phone}</span>
             </div>
           </label>
+
           ${addr.isDefault ? '<span class="default">Default</span>' : ''}
+
           <div class="address-actions">
             <form method="POST" action="/address/delete">
               <input type="hidden" name="id" value="${addr.id}">
@@ -41,10 +44,7 @@ export function cartView({ cart = {}, addresses = {} }) {
               <input type="hidden" name="id" value="${addr.id}">
               <button class="btn">Set Default</button>
             </form>
-            <form method="POST" action="/address/edit">
-              <input type="hidden" name="id" value="${addr.id}">
-              <button class="btn">Edit</button>
-            </form>
+          
           </div>
           <form method="POST" action="/address/edit" class="edit-address-form">
             <input type="hidden" name="id" value="${addr.id}">
@@ -63,11 +63,12 @@ export function cartView({ cart = {}, addresses = {} }) {
       <h1>Cart</h1>
       ${items}
       <hr>
+
       <section class="addresses">
         <h2>Select Delivery Address</h2>
+        ${addressList}
         
         <form method="POST" action="/checkout" class="form checkout-form">
-          ${addressList}
           <button class="btn primary" >Proceed to Checkout</button>
         </form>
 

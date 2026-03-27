@@ -4,6 +4,8 @@ db.exec(`
     DROP TABLE IF EXISTS cart_items;
     DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS user_details;
+    DROP TABLE IF EXISTS tea_types;
+    DROP TABLE IF EXISTS origins;
     DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS items;
     DROP TABLE IF EXISTS sessions;
@@ -35,6 +37,22 @@ db.exec(`
         price INTEGER NOT NULL,
         stock INTEGER NOT NULL,
         image TEXT
+        tea_type_id INTEGER,
+        origin_id INTEGER,
+
+        FOREIGN KEY (tea_type_id) REFERENCES tea_types(id),
+        FOREIGN KEY (origin_id) REFERENCES origins(id)
+        
+    );
+
+    CREATE TABLE tea_types (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL
+    );
+
+    CREATE TABLE origins (
+        id INTEGER PRIMARY KEY,
+        country TEXT NOT NULL
     );
 
     CREATE TABLE user_details (
@@ -61,29 +79,42 @@ db.exec(`
         productId INTEGER NOT NULL,
         quantity INTEGER NOT NULL DEFAULT 1,
 
-        FOREIGN KEY (cartId) REFERENCES carts(id),
+        FOREIGN KEY (cartId) REFERENCES carts(id) ON DELETE CASCADE,
         FOREIGN KEY (productId) REFERENCES products(productId)
     );
 
-    INSERT INTO products (productId, productName, price, stock, image) VALUES
-        (1, 'Matcha', 65, 18, 'matcha.jpg'),
 
-        (2, 'Longjing (Dragon Well)', 45, 24, 'longjing.jpg'),
-        (3, 'Sencha', 40, 16, 'sencha.png'),
-        (4, 'Nilgiri Green Tea', 30, 27, 'nilgiri.jpg'),
+    INSERT INTO tea_types (id, name) VALUES
+        (1, 'Matcha'),
+        (2, 'Green'),
+        (3, 'Oolong'),
+        (4, 'Herbal'),
+        (5, 'White'),
+        (6, 'Black');
 
-        (5, 'Tie Guan Yin', 42, 19, 'tieguanyin.jpg'),
-        (6, 'Formosa Oolong', 48, 14, 'formosa.png'),
-        (7, 'Darjeeling Oolong', 50, 22, 'darjeeling.jpg'),
+    INSERT INTO origins (id, country) VALUES
+        (1, 'Japan'),
+        (2, 'China'),
+        (3, 'India'),
+        (4, 'Sri Lanka'),
+        (5, 'Taiwan'),
+        (6, 'South Africa');
 
-        (9, 'Hibiscus Flower Tea', 25, 29, 'hibiscusflower.jpg'),
-        (10, 'Ranawara Tea', 24, 31, 'ranawara.jpg'),
 
-        (12, 'White Peony Tea', 45, 20, 'whitepeony.jpg'),
-        (13, 'Ceylon White Tea', 60, 9, 'whiteceylon.jpg'),
-
-        (14, 'Assam', 28, 26, 'assam.png'),
-        (15, 'Ceylon Black Tea', 30, 23, 'blackceylon.png');
+    INSERT INTO products (productId, productName, price, stock, image, tea_type_id, origin_id) VALUES
+        (1, 'Matcha', 65, 18, 'matcha.jpg', 1, 1),
+        (2, 'Longjing (Dragon Well)', 45, 24, 'longjing.jpg', 2, 2),
+        (3, 'Sencha', 40, 16, 'sencha.png', 2, 1),
+        (4, 'Nilgiri Green Tea', 30, 27, 'nilgiri.jpg', 2, 3),
+        (5, 'Tie Guan Yin', 42, 19, 'tieguanyin.jpg', 3, 2),
+        (6, 'Formosa Oolong', 48, 14, 'formosa.png', 3, 5),
+        (7, 'Darjeeling Oolong', 50, 22, 'darjeeling.jpg', 3, 3),
+        (9, 'Hibiscus Flower Tea', 25, 29, 'hibiscusflower.jpg', 4, 6),
+        (10, 'Ranawara Tea', 24, 31, 'ranawara.jpg', 4, 4),
+        (12, 'White Peony Tea', 45, 20, 'whitepeony.jpg', 5, 2),
+        (13, 'Ceylon White Tea', 60, 9, 'whiteceylon.jpg', 5, 4),
+        (14, 'Assam', 28, 26, 'assam.png', 6, 3),
+        (15, 'Ceylon Black Tea', 30, 23, 'blackceylon.png', 6, 4);
 
     INSERT INTO items (label) VALUES
         ('apples'),

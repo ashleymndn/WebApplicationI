@@ -35,6 +35,11 @@ export default class ApplicationRouter {
         const route = this.routes.find(({method, pattern}) => {
             return request.method == method && pattern.test(request.url);
         });
+
+        if (!route) {
+            return new Response("Not Found", { status: 404 });
+        }
+
         const middleware = [...this.middleware, ...route.middleware];
         return this.chain(ctx, middleware, route.handler);
         // return route.handler({ request });

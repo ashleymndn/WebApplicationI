@@ -13,6 +13,7 @@ import render from "../render.js";
 import { cartView } from "../views/cart.js";
 import { getUserDetailsByEmail } from "../models/userDetails.js";
 
+
 export async function cartController(ctx) {
     const { request, session, headers } = ctx;
 
