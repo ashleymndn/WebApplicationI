@@ -1,77 +1,106 @@
 import redirect from "../redirect.js";
+import render from "../render.js";
+import { cartView } from "../views/cart.js";
 import {
-    createUserDetails,
-    deleteUserDetails,
-    setDefaultAddress,
-    updateAddress,
+  createUserDetails,
+  deleteUserDetails,
+  setDefaultAddress,
+  updateAddress,
+  getUserDetailsByEmail
 } from "../models/userDetails.js";
+import { getCartByEmail, getCartItems } from "../models/cart.js";
 
-// ADD ADDRESS
+
 export async function addAddressController(ctx) {
-    const { session, request, headers } = ctx;
+  const { session, headers, validated, isValid, errors } = ctx;
 
-    if (!session) return redirect(headers, "/login");
+  if (!session) return redirect(headers, "/login");
 
-    const formData = await request.formData();
+  const email = session.email;
+  const cart = getCartByEmail(email);
+  const items = cart ? getCartItems(cart.id) : [];
+  const addresses = getUserDetailsByEmail(email) || [];
 
-    await createUserDetails({
-        email: session.email,
-        phone: formData.get("phone"),
-        address: formData.get("address"),
-        city: formData.get("city"),
-        country: formData.get("country"),
-        isDefault: 0
-    });
+  if (!isValid) {
+    return render(cartView, {
+      cart: items,
+      addresses,
+      errors
+    }, ctx);
+  }
 
-    return redirect(headers, "/cart");
+  await createUserDetails({
+    email,
+    phone: validated.phone,
+    address: validated.address,
+    city: validated.city,
+    country: validated.country,
+    isDefault: 0
+  });
+
+  return redirect(headers, "/cart");
 }
 
-// DELETE ADDRESS
+
 export async function deleteAddressController(ctx) {
   const { session, request, headers } = ctx;
+
   if (!session) return redirect(headers, "/login");
 
   const formData = await request.formData();
   const id = formData.get("id");
-  const action = formData.get("action");
 
-  if (action === "remove")  {
-    return redirect(headers, "/cart");
-  }
+  if (!id) return redirect(headers, "/cart");
 
   await deleteUserDetails(id, session.email);
 
   return redirect(headers, "/cart");
 }
 
-// SET DEFAULT ADDRESS
+
 export async function setDefaultController(ctx) {
-    const { session, request, headers } = ctx;
+  const { session, request, headers } = ctx;
 
-    if (!session) return redirect(headers, "/login");
+  if (!session) return redirect(headers, "/login");
 
-    const formData = await request.formData();
+  const formData = await request.formData();
+  const id = formData.get("id");
 
-    await setDefaultAddress(formData.get("id"), session.email);
+  if (!id) return redirect(headers, "/cart");
 
-    return redirect(headers, "/cart");
+  await setDefaultAddress(id, session.email);
+
+  return redirect(headers, "/cart");
 }
 
+
 export async function editAddressController(ctx) {
-    const { session, request, headers } = ctx;
-    if (!session) return redirect(headers, "/login");
+  const { session, headers, validated, isValid, errors } = ctx;
 
-    const formData = await request.formData();
-    const id = formData.get("id");
+  if (!session) return redirect(headers, "/login");
 
-    if (!id) return redirect(headers, "/cart");
+  const email = session.email;
+  const cart = getCartByEmail(email);
+  const items = cart ? getCartItems(cart.id) : [];
+  const addresses = getUserDetailsByEmail(email) || [];
 
-    await updateAddress(id, session.email, {
-        phone: formData.get("phone"),
-        address: formData.get("address"),
-        city: formData.get("city"),
-        country: formData.get("country")
-    });
+  if (!isValid) {
+    return render(cartView, {
+      cart: items,
+      addresses,
+      errors
+    }, ctx);
+  }
 
-    return redirect(headers, "/cart");
+  const id = validated.id;
+  if (!id) return redirect(headers, "/cart");
+
+  await updateAddress(id, email, {
+    phone: validated.phone,
+    address: validated.address,
+    city: validated.city,
+    country: validated.country
+  });
+
+  return redirect(headers, "/cart");
 }

@@ -23,6 +23,20 @@ export function validateField(name, value, validators) {
     }
 }
 
+export function isEmail(name, value) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+        return `${name} must be a valid email (e.g. user@gmail.com)`;
+    }
+}
+
+export function hasSymbol(name, value) {
+    const symbolRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!symbolRegex.test(value)) {
+        return `${name} must contain at least one symbol`;
+    }
+}
+
 export function validateSchema(formData, schema) {
     const entries = Object.entries(schema);
     const validated = {};
@@ -41,3 +55,4 @@ export function validateSchema(formData, schema) {
     const errors = Object.fromEntries(errorEntries);
     return { isValid, errors, validated };
 }
+

@@ -12,9 +12,9 @@ export function loginFormView({ errors = { email: {} , password: {}} }) {
             <label for="login" class="center">Login</label>
             <br>
             <div class="Form_Item">       
-            <input id="email" name="email" placeholder="Email"${email.value} required><br>
+            <input id="email" name="email" placeholder="Email" ${email.value} required><br>
             ${email.message}
-            <input id="password" name="password" type="password" placeholder="Password"${password.value} required><br>
+            <input id="password" name="password" type="password" placeholder="Password" ${password.value} required><br>
             ${password.message}
             <button>Sign in</button>
         </form>
@@ -32,13 +32,13 @@ export function registrationFormView({ errors = { firstname: {} , lastname: {}, 
         <form method="POST" class="auth">
             <label for="signup" class="center">Sign up</label>
             <br>   
-            <input id="text" name="firstname" placeholder="First Name"${firstname.value} required minLength="2"><br>
+            <input id="text" name="firstname" placeholder="First Name" ${firstname.value} required minLength="2"><br>
             ${firstname.message}
-            <input id="text" name="lastname" placeholder="Last Name"${password.value} required minLength="2"><br>
+            <input id="text" name="lastname" placeholder="Last Name" ${lastname.value} required minLength="2"><br>
             ${lastname.message}
-            <input id="email" name="email" placeholder="Email"${email.value} required minLength="5"><br>
+            <input id="email" name="email" placeholder="Email" ${email.value} required minLength="5"><br>
             ${email.message}
-            <input id="password" name="password" type="password" placeholder="Password"${password.value} required minLength="8"><br>
+            <input id="password" name="password" type="password" placeholder="Password" ${password.value} required minLength="8"><br>
             ${password.message}
             <input id="confirm" name="confirm_password" type="password" placeholder="Password">
             <button>Create my Account</button>

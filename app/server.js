@@ -15,6 +15,7 @@ import { newItemSchema } from "./schema/newItem.js";
 import { validate } from "./middleware/validate.js";
 import { userSchemaLogin, userSchemaRegister } from "./schema/user.js";
 import { addAddressController, deleteAddressController, editAddressController, setDefaultController } from "./controllers/userDetails.js";
+import { userDetailsSchema } from "./schema/userDetails.js";
 
 const app = new ApplicationRouter();
 
@@ -38,11 +39,11 @@ app.post("/login", loginFormController, excludesSession, validate(userSchemaLogi
 app.get("/dashboard", dashboardController, requiresSession);
 app.get("/cart", cartController, requiresSession);
 app.post("/cart", cartController, requiresSession);
-app.post("/address/add", addAddressController, requiresSession);
-app.post("/address/delete", deleteAddressController, requiresSession);
-app.post("/address/default", setDefaultController, requiresSession);
-app.post("/address/edit", editAddressController, requiresSession);
-app.post("/address/checkout", cartController, requiresSession);
+app.post("/address/add", requiresSession, validate(userDetailsSchema), addAddressController);
+app.post("/address/delete", requiresSession, deleteAddressController);
+app.post("/address/default", requiresSession, setDefaultController);
+app.post("/address/edit", requiresSession, validate(userDetailsSchema), editAddressController);
+app.post("/checkout", cartController, requiresSession);
 app.post("/logout", deleteSessionController, requiresSession);
 
 app.get("*", notFoundController);

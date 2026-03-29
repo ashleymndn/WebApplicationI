@@ -83,6 +83,24 @@ db.exec(`
         FOREIGN KEY (productId) REFERENCES products(productId)
     );
 
+    CREATE TABLE orders (
+        orderId INTEGER PRIMARY KEY AUTOINCREMENT,
+        userId INTEGER NOT NULL,
+        totalAmount REAL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (userId) REFERENCES users(userId)
+    );
+
+    CREATE TABLE order_items (
+        orderItemId INTEGER PRIMARY KEY AUTOINCREMENT,
+        orderId INTEGER NOT NULL,
+        productId INTEGER NOT NULL,
+        quantity INTEGER NOT NULL,
+        price REAL NOT NULL,
+        FOREIGN KEY (orderId) REFERENCES orders(orderId),
+        FOREIGN KEY (productId) REFERENCES products(productId)
+    );
+
 
     INSERT INTO tea_types (id, name) VALUES
         (1, 'Matcha'),

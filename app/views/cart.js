@@ -1,4 +1,19 @@
-export function cartView({ cart = {}, addresses = {} }) {
+import { fragments } from "./errors.js";
+
+export function cartView({
+  cart = [],
+  addresses = [],
+  errors = {
+    phone: {},
+    address: {},
+    city: {},
+    country: {},
+    cart: {},
+    addresses: {}
+  }
+}) {
+
+  const errorDetails = fragments(errors);
   const items = cart.length 
     ? cart.map(item => `
       <div class="cart-item">
@@ -13,7 +28,7 @@ export function cartView({ cart = {}, addresses = {} }) {
             <button type="submit">Remove</button>
           </form>
         </div>`
-      )
+      ).join("")
     : `<p>Cart is empty</p>`;
 
 
@@ -55,7 +70,7 @@ export function cartView({ cart = {}, addresses = {} }) {
             <button class="btn">Save</button>
           </form>
         </div>`
-      )
+      ).join("")
     : `<p>No addresses found</p>`;
 
   return `
@@ -74,16 +89,24 @@ export function cartView({ cart = {}, addresses = {} }) {
 
         ${addresses.length < 3 ? `
           <h3>Add New Address</h3>
-          <form method="POST" action="/address/add" class="form-addr">
-            <input class="input" name="phone" placeholder="Phone" required />
-            <input class="input" name="address" placeholder="Address" required>
-            <input class="input" name="city" placeholder="City" required>
-            <input class="input" name="country" placeholder="Country" required>
-            <button class="btn">Add Address</button>
-          </form>
-        
-          
-        ` : `<p>Maximum 3 addresses reached</p>`}
+
+        <form method="POST" action="/address/add" class="form-addr">
+  
+          <input class="input" name="phone" placeholder="Phone" required />
+          ${errorDetails.phone?.message ? `<span class="error">${errorDetails.phone.message}</span>` : ''}
+
+          <input class="input" name="address" placeholder="Address" required>
+          ${errorDetails.address?.message ? `<span class="error">${errorDetails.address.message}</span>` : ''}
+
+          <input class="input" name="city" placeholder="City" required>
+          ${errorDetails.city?.message ? `<span class="error">${errorDetails.city.message}</span>` : ''}
+
+          <input class="input" name="country" placeholder="Country" required>
+          ${errorDetails.country?.message ? `<span class="error">${errorDetails.country.message}</span>` : ''}
+
+          <button class="btn">Add Address</button>
+        </form>
+` : `<p>Maximum 3 addresses reached</p>`}
       </section>
     </div>
   `;
