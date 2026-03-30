@@ -25,6 +25,7 @@ header, footer {
     }
 }
 
+/* all pages - header */
 header {
     display: flex;
     justify-content: space-between;
@@ -50,12 +51,14 @@ header {
 }
 
 
+
+/* all pages - footer info & links */
 .footer {
     background-color: rgb(8, 7, 16);
     color: #ffffff;
     padding: 4rem 0 4rem 0;
     width: 100%;
-    height: 20vh;
+    height: 23vh;
     margin: 0 auto;
 }
 
@@ -67,7 +70,6 @@ header {
     flex-wrap: wrap;
     margin: 0 auto;
 }
-
 
 .footer-col {
     display: flex;
@@ -107,6 +109,9 @@ header {
 
 
 
+
+
+/* all pages - links to pages */
 .topnav {
     list-style-type: none;
     margin: 0;
@@ -132,7 +137,6 @@ header {
     
 }
 
-
 .dropbtn {
     display: none;
     background-color: rgb(243, 237, 220);
@@ -146,7 +150,10 @@ header {
     position: relative;   
 }
 
-/* mobile menu bar */
+
+
+
+/* all pages - mobile menu bar */
 @media screen and (max-width: 780px) {
 
   .topnav {
@@ -166,6 +173,11 @@ header {
   }
 }
 
+
+
+
+/* home page content */
+
 h1 {
     text-align: center;
 }
@@ -175,16 +187,26 @@ h1 {
     width: 250px;
 }
 
-.container-footer {
+.container-img {
     display: flex;
-    flex-direction: column;
     width: 97%;
-    max-width: 2460px;
     margin: 0 auto;
     position: relative;
 }
 
-.container-footer h2 {
+.hero_img {   
+    gap: 0;
+    margin: 0 auto;
+    position: relative; 
+    max-width: 100%;
+    height: 70%;
+    width: 100%;
+    height: min(90vh, 2460px); 
+    z-index: 0;
+}
+
+
+.container-img h2 {
     position: absolute;
     top: 0%; 
     left: 0;
@@ -195,7 +217,7 @@ h1 {
     z-index: 2;
 }
 
-.container-footer h3 {
+.container-img h3 {
     position: absolute;
     bottom: 7%; 
     left: 1%;
@@ -205,7 +227,6 @@ h1 {
     padding: 0 20px;  
     z-index: 2;
 }
-
 
 button.learn {
     position: absolute;
@@ -220,23 +241,12 @@ button.learn {
     background:rgb(231, 201, 168);
     color: #111;
     cursor: pointer;
-    }
-
-
-
-.hero_img {
-    gap: 0;
-    margin: 0;
-    position: relative; 
-    max-width: 100%;
-    height: 70%;
-    width: 100%;
-    height: min(90vh, 2460px); 
-    z-index: 0;
 }
 
-/* filters */
 
+
+
+/* filters */
 .shop-layout{
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -344,6 +354,9 @@ button.learn {
 }
 
 
+
+
+/* flash message */
 button,
 input {
     font-size: inherit;
@@ -373,6 +386,12 @@ aside#flash {
     }
 }
 
+
+
+
+
+
+/* login & register */
 form {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -408,19 +427,26 @@ form.auth {
     }
 }
 
+.center {
+    text-align: center;
+}
+
+
+
+
+/* form new item*/
 form.new-item {
     gap: 0 0.5rem;
     place-self: start;
     padding: 1rem;
     background: #ddd;
     border: 0.5px solid black;
-    
 }
 
-.center {
-    text-align: center;
-}
 
+
+
+/* cart page */
 .cart-page {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -428,7 +454,6 @@ form.new-item {
   padding: 40px;
 }
 
-/* LEFT SIDE */
 .cart-left h2 {
   margin-bottom: 20px;
 }
@@ -487,14 +512,12 @@ form.new-item {
   display: inline-block;
   margin-top: 10px;
   text-decoration: underline;
-  color: black;
 }
 
 .address-card label {
     display: block;
     cursor: pointer;
 }
-
 
 .cart-right h2 {
   margin-bottom: 20px;
@@ -527,7 +550,6 @@ form.new-item {
     margin: 0 auto;
 }
 
-
 .address-card {
     background: #fff;
     padding: 15px;
@@ -536,7 +558,6 @@ form.new-item {
     border: 1px solid #ddd;
     position: relative;
 }
-
 
 .address-label {
     display: flex;
@@ -548,7 +569,6 @@ form.new-item {
 .address-label input {
     margin-top: 5px;
 }
-
 
 .address-info {
     display: flex;
@@ -595,3 +615,145 @@ form.new-item {
     margin-top: 15px;
 }
 
+
+
+
+
+
+/* about page */
+
+.container-img2 {
+    margin: 0 auto;
+    position: relative;
+}
+
+.story-img {   
+    width: 100%;
+    height: 90vh;
+    object-fit: cover; 
+    z-index: 0;
+}
+
+.container-img2 h1 {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    font-size: 8rem;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #ddd;
+}
+
+.container-img2 h2 {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    font-size: 3rem;
+    font-size: 3rem;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #ddd;
+}
+
+.about-h2 {
+    text-align: center;
+    font-size: xx-large;
+    padding: 5%;
+}
+
+.about {
+    display: flex;
+    justify-content: space-evenly;       
+    margin: 0 auto;
+    gap: 200px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    padding: 5rem;
+    flex-direction: row;
+    background-color: rgb(182, 218, 185);
+}
+
+.about p {
+    font-size: 30px;
+    padding: 30px;
+}
+
+.about-img {
+    width: 600px;
+    height: 900px; 
+}
+
+.content {
+    width: 700px;
+    height: auto;
+    background-color: white;  
+    padding: 20px;
+    border-radius: 30px;       
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    margin: auto;
+}
+
+.icon {
+    width: 90px;
+    height: auto;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 140px;
+    padding: 60px;
+    margin: 80px auto;
+}
+
+.text {
+    text-align: center;
+}
+
+.text h3 {
+    margin: 0;
+    font-size: 27px;
+}
+
+.text p {
+    margin: 3px 0 0;
+    font-size: 23px;
+    color: #555;
+}
+
+.feature {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    align-items: center;
+    width: 600px;
+    gap: 40px;
+}
+
+
+
+/* contact page */
+
+.contact {
+  max-width: 400px;
+  margin: auto;
+}
+
+input, textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+button {
+  background: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}

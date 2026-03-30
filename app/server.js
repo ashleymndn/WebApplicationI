@@ -16,6 +16,9 @@ import { validate } from "./middleware/validate.js";
 import { userSchemaLogin, userSchemaRegister } from "./schema/user.js";
 import { addAddressController, deleteAddressController, editAddressController, setDefaultController } from "./controllers/userDetails.js";
 import { userDetailsSchema } from "./schema/userDetails.js";
+import { checkoutController } from "./controllers/checkout.js";
+import { contactController, submitContactController } from "./controllers/contact.js";
+import { contactSchema } from "./schema/contact.js";
 
 const app = new ApplicationRouter();
 
@@ -37,13 +40,15 @@ app.post("/register", registrationFormController, excludesSession, validate(user
 app.get("/login", loginFormController, excludesSession);
 app.post("/login", loginFormController, excludesSession, validate(userSchemaLogin), addSessionController);
 app.get("/dashboard", dashboardController, requiresSession);
+app.get("/contact", contactController);
+app.post("/contact", validate(contactSchema), submitContactController);
 app.get("/cart", cartController, requiresSession);
 app.post("/cart", cartController, requiresSession);
 app.post("/address/add", requiresSession, validate(userDetailsSchema), addAddressController);
 app.post("/address/delete", requiresSession, deleteAddressController);
 app.post("/address/default", requiresSession, setDefaultController);
 app.post("/address/edit", requiresSession, validate(userDetailsSchema), editAddressController);
-app.post("/checkout", cartController, requiresSession);
+app.post("/checkout", cartController, checkoutController, requiresSession,);
 app.post("/logout", deleteSessionController, requiresSession);
 
 app.get("*", notFoundController);

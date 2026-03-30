@@ -38,9 +38,10 @@ export function cartView({
           <label class="address-label">
             <input 
               type="radio" 
-              name="selectedAddress" 
-              value="${addr.id}" 
-              ${addr.isDefault ? 'checked' : ''}>
+              name="addressId" 
+              value="${addr.id}"
+              form="checkout-form"  
+              ${addr.isDefault == 1 ? 'checked' : ''}>
             <div class="address-info">
               <strong>${addr.address}</strong>
               <span>${addr.city}, ${addr.country}</span>
@@ -83,8 +84,8 @@ export function cartView({
         <h2>Select Delivery Address</h2>
         ${addressList}
         
-        <form method="POST" action="/checkout" class="form checkout-form">
-          <button class="btn primary" >Proceed to Checkout</button>
+        <form id="checkout-form" method="POST" action="/checkout" class="form checkout-form">
+          <button form="checkout-form" class="btn primary">Proceed to Checkout</button>
         </form>
 
         ${addresses.length < 3 ? `

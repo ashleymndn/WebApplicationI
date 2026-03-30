@@ -8,3 +8,15 @@ export function getProductById(id) {
         SELECT * FROM products WHERE productId = ?
     `).get(id);
 }
+
+export function decreaseStock(productId, quantity) {
+    const product = getProductById(productId);
+    if (!product || product.stock < quantity) {
+        throw new Error("Not enough stock");
+    }
+    return db.prepare(`
+        UPDATE products
+        SET stock = stock - ?
+        WHERE productId = ?
+    `).run(quantity, productId);
+}

@@ -1,15 +1,21 @@
 import { db } from "../db.js";
 
 db.exec(`
+    
+    PRAGMA foreign_keys = ON;
+
+    DROP TABLE IF EXISTS order_items;
+    DROP TABLE IF EXISTS orders;
     DROP TABLE IF EXISTS cart_items;
     DROP TABLE IF EXISTS carts;
     DROP TABLE IF EXISTS user_details;
+    DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS tea_types;
     DROP TABLE IF EXISTS origins;
-    DROP TABLE IF EXISTS products;
     DROP TABLE IF EXISTS items;
     DROP TABLE IF EXISTS sessions;
     DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS contact_messages;
 
 
 
@@ -36,7 +42,7 @@ db.exec(`
         productName TEXT NOT NULL,
         price INTEGER NOT NULL,
         stock INTEGER NOT NULL,
-        image TEXT
+        image TEXT,
         tea_type_id INTEGER,
         origin_id INTEGER,
 
@@ -66,6 +72,15 @@ db.exec(`
         FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
     );
 
+    CREATE TABLE contact_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        firstName TEXT NOT NULL,
+        lastName TEXT NOT NULL,
+        email TEXT NOT NULL,
+        message TEXT NOT NULL,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
 
     CREATE TABLE carts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -85,10 +100,13 @@ db.exec(`
 
     CREATE TABLE orders (
         orderId INTEGER PRIMARY KEY AUTOINCREMENT,
-        userId INTEGER NOT NULL,
+        email TEXT NOT NULL,
+        addressId INTEGER NOT NULL,
         totalAmount REAL,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (userId) REFERENCES users(userId)
+        
+        FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE,
+        FOREIGN KEY (addressId) REFERENCES user_details(id) ON DELETE SET NULL
     );
 
     CREATE TABLE order_items (
@@ -120,19 +138,19 @@ db.exec(`
 
 
     INSERT INTO products (productId, productName, price, stock, image, tea_type_id, origin_id) VALUES
-        (1, 'Matcha', 65, 18, 'matcha.jpg', 1, 1),
-        (2, 'Longjing (Dragon Well)', 45, 24, 'longjing.jpg', 2, 2),
-        (3, 'Sencha', 40, 16, 'sencha.png', 2, 1),
-        (4, 'Nilgiri Green Tea', 30, 27, 'nilgiri.jpg', 2, 3),
-        (5, 'Tie Guan Yin', 42, 19, 'tieguanyin.jpg', 3, 2),
-        (6, 'Formosa Oolong', 48, 14, 'formosa.png', 3, 5),
-        (7, 'Darjeeling Oolong', 50, 22, 'darjeeling.jpg', 3, 3),
-        (9, 'Hibiscus Flower Tea', 25, 29, 'hibiscusflower.jpg', 4, 6),
-        (10, 'Ranawara Tea', 24, 31, 'ranawara.jpg', 4, 4),
-        (12, 'White Peony Tea', 45, 20, 'whitepeony.jpg', 5, 2),
-        (13, 'Ceylon White Tea', 60, 9, 'whiteceylon.jpg', 5, 4),
-        (14, 'Assam', 28, 26, 'assam.png', 6, 3),
-        (15, 'Ceylon Black Tea', 30, 23, 'blackceylon.png', 6, 4);
+        (1, 'Matcha 50g', 65, 18, 'matcha.jpg', 1, 1),
+        (2, 'Longjing (Dragon Well) 50g', 45, 24, 'longjing.jpg', 2, 2),
+        (3, 'Sencha 50g', 40, 16, 'sencha.png', 2, 1),
+        (4, 'Nilgiri Green Tea 50g', 30, 27, 'nilgiri.jpg', 2, 3),
+        (5, 'Tie Guan Yin 50g', 42, 19, 'tieguanyin.jpg', 3, 2),
+        (6, 'Formosa Oolong 50g', 48, 14, 'formosa.png', 3, 5),
+        (7, 'Darjeeling Oolong 50g', 50, 22, 'darjeeling.jpg', 3, 3),
+        (9, 'Hibiscus Flower Tea 50g', 25, 29, 'hibiscusflower.jpg', 4, 6),
+        (10, 'Ranawara Tea 50g', 24, 31, 'ranawara.jpg', 4, 4),
+        (12, 'White Peony Tea 50g', 45, 20, 'whitepeony.jpg', 5, 2),
+        (13, 'Ceylon White Tea 50g', 60, 9, 'whiteceylon.jpg', 5, 4),
+        (14, 'Assam 50g', 28, 26, 'assam.png', 6, 3),
+        (15, 'Ceylon Black Tea 50g', 30, 23, 'blackceylon.png', 6, 4);
 
     INSERT INTO items (label) VALUES
         ('apples'),
@@ -142,4 +160,4 @@ db.exec(`
     
 
 
-`)
+`);

@@ -25,12 +25,12 @@ export function homeView({ products, teaTypes = [], origins = [], sort = "" }) {
     return `
     <section aria-labelledby="home-heading">
 
-        <div class="container-footer">
+        <div class="container-img">
             <h2>Welcome to Rindo Tea!</h2>
             <h3>Explore our selection of teas,
             sourced from different tea farmers and artisans.</h3>
             <a href="/about"><button class="learn">Learn More</button></a>
-            <img class="hero_img" src="/assets/images/bg1.webp">
+            <img class="hero_img" src="/assets/images/bg1.png">
         </div>
 
     <div class="shop-layout">

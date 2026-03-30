@@ -4,9 +4,9 @@ import { cartView } from "../views/cart.js";
 import {
   createUserDetails,
   deleteUserDetails,
+  getUserDetailsByEmail,
   setDefaultAddress,
-  updateAddress,
-  getUserDetailsByEmail
+  updateAddress
 } from "../models/userDetails.js";
 import { getCartByEmail, getCartItems } from "../models/cart.js";
 
@@ -19,12 +19,12 @@ export async function addAddressController(ctx) {
   const email = session.email;
   const cart = getCartByEmail(email);
   const items = cart ? getCartItems(cart.id) : [];
-  const addresses = getUserDetailsByEmail(email) || [];
+  const details = getUserDetailsByEmail(email) || [];
 
   if (!isValid) {
     return render(cartView, {
       cart: items,
-      addresses,
+      addresses: details,
       errors
     }, ctx);
   }
@@ -82,18 +82,20 @@ export async function editAddressController(ctx) {
   const email = session.email;
   const cart = getCartByEmail(email);
   const items = cart ? getCartItems(cart.id) : [];
-  const addresses = getUserDetailsByEmail(email) || [];
+  const details = getUserDetailsByEmail(email) || [];
 
   if (!isValid) {
     return render(cartView, {
       cart: items,
-      addresses,
+      addresses: details,
       errors
     }, ctx);
   }
 
   const id = validated.id;
   if (!id) return redirect(headers, "/cart");
+
+  console.log(validated);
 
   await updateAddress(id, email, {
     phone: validated.phone,

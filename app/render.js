@@ -48,6 +48,7 @@ export default function render(viewFn, data, ctx) {
                         <li><a href="/">Home</a></li>
                         <li><a href="/about">About</a></li>
                         <li>${links}</li>
+                        <li><a href="/contact">Contact Us</a></li>
                         </ul>
 
                 </div>
@@ -74,6 +75,7 @@ export default function render(viewFn, data, ctx) {
                         <li><a href="/">Home</a></li>
                         <li><a href="/about">About Us</a></li>
                         <li><a href="/cart">Cart</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
                     </ul>
                     </div>
 

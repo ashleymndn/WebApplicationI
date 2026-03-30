@@ -1,6 +1,5 @@
 import { db } from "../db.js";
 
-// GET addresses
 export function getUserDetailsByEmail(email) {
     return db.prepare(`
         SELECT * FROM user_details 
@@ -8,7 +7,7 @@ export function getUserDetailsByEmail(email) {
     `).all({ email });
 }
 
-// ADD address (max 3)
+// add address (max 3)
 export function createUserDetails(details) {
     const count = db.prepare(`
         SELECT COUNT(*) as total 
@@ -20,7 +19,7 @@ export function createUserDetails(details) {
         throw new Error("Maximum 3 addresses allowed");
     }
 
-    // first address becomes default
+    // first address default
     if (count.total === 0) {
         details.isDefault = 1;
     }
@@ -32,7 +31,6 @@ export function createUserDetails(details) {
     `).run(details);
 }
 
-// DELETE address
 export function deleteUserDetails(id, email) {
     db.prepare(`
         DELETE FROM user_details 
@@ -40,7 +38,6 @@ export function deleteUserDetails(id, email) {
     `).run({ id, email });
 }
 
-// SET DEFAULT
 export function setDefaultAddress(id, email) {
     db.prepare(`
         UPDATE user_details 
@@ -62,6 +59,7 @@ export function updateAddress(id, email, data) {
             address = :address,
             city = :city,
             country = :country
-        WHERE id = :id AND email = :email
+        WHERE id = :id 
+        AND lower(email) = lower(:email)
     `).run({ id, email, ...data });
 }
