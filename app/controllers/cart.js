@@ -17,7 +17,7 @@ export async function cartController(ctx) {
   const { request, session, headers } = ctx;
 
   if (!session) {
-    return redirect(headers, "/login", "Sign in to gain access");
+    return redirect(headers, "/login", "Sign in to have Access");
   }
 
   const email = session.email;
@@ -26,7 +26,6 @@ export async function cartController(ctx) {
     const formData = await request.formData();
     const action = formData.get("action");
 
-    // remove
     if (action === "remove") {
       const cartItemId = formData.get("cartItemId");
       if (cartItemId) {
@@ -35,7 +34,6 @@ export async function cartController(ctx) {
       return redirect(headers, "/cart");
     }
 
-    // add item
     const productId = formData.get("productId");
     const quantity = Number(formData.get("quantity")) || 1;
 

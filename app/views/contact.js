@@ -9,19 +9,17 @@ export function contactFormView({ errors = {}, values = {} }) {
     <form class="contact" method="POST" action="/contact">
         
         <input type="text" name="firstName" placeholder="First Name"
-        value="${values.firstName || ""}">
-        ${errorDetails.firstName?.message || ""}
+        value="${values.firstName || ""}"> ${errorDetails.firstName?.message || ""} <br>
 
         <input type="text" name="lastName" placeholder="Last Name"
-            value="${values.lastName || ""}">
-        ${errorDetails.lastName?.message || ""}
+            value="${values.lastName || ""}"> ${errorDetails.lastName?.message || ""} <br>
 
         <input type="email" name="email" placeholder="Email"
-            value="${values.email || ""}">
-        ${errorDetails.email?.message || ""}
+            value="${values.email || ""}"> ${errorDetails.email?.message || ""} <br>
 
-        <textarea name="message" placeholder="Your Message">${values.message || ""}</textarea>
-        ${errorDetails.message?.message || ""}
+        <input type="message" placeholder="Your Message"
+            value="${values.message || ""}"> ${errorDetails.message?.message || ""} <br>
+
         <button type="submit">Send Message</button>
     </form>
   `;

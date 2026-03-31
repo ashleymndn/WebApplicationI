@@ -93,16 +93,16 @@ export function cartView({
 
         <form method="POST" action="/address/add" class="form-addr">
   
-          <input class="input" name="phone" placeholder="Phone" required />
+          <input class="input" name="phone" placeholder="Phone" required minLength="10" maxLength="20">
           ${errorDetails.phone?.message ? `<span class="error">${errorDetails.phone.message}</span>` : ''}
 
-          <input class="input" name="address" placeholder="Address" required>
+          <input class="input" name="address" placeholder="Address" required minLength="5" maxLength="255">
           ${errorDetails.address?.message ? `<span class="error">${errorDetails.address.message}</span>` : ''}
 
-          <input class="input" name="city" placeholder="City" required>
+          <input class="input" name="city" placeholder="City" required minLength="2" maxLength="60">
           ${errorDetails.city?.message ? `<span class="error">${errorDetails.city.message}</span>` : ''}
 
-          <input class="input" name="country" placeholder="Country" required>
+          <input class="input" name="country" placeholder="Country" required minLength="4" maxLength="30">
           ${errorDetails.country?.message ? `<span class="error">${errorDetails.country.message}</span>` : ''}
 
           <button class="btn">Add Address</button>

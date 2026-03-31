@@ -64,7 +64,8 @@ export function homeView({ products, teaTypes = [], origins = [], sort = "" }) {
             </select>
 
             <br>
-            <button type="submit">Apply Filters</button>
+            <button type="submit">Apply Filters</button><br>
+            <button type="button" onclick="window.location='/shop'">Clear Filters</button>
         </form>
     </aside>
 

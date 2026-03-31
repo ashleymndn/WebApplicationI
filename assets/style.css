@@ -50,6 +50,10 @@ header {
     }
 }
 
+.logout {
+    color: #000000;
+}
+
 
 
 /* all pages - footer info & links */
@@ -58,7 +62,7 @@ header {
     color: #ffffff;
     padding: 4rem 0 4rem 0;
     width: 100%;
-    height: 23vh;
+    height: 28vh;
     margin: 0 auto;
 }
 
@@ -113,6 +117,7 @@ header {
 
 /* all pages - links to pages */
 .topnav {
+    position: relative;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -123,9 +128,10 @@ header {
 
 
 .topnav button {
+    position: relative;
     padding: 19px 17px;
     border: none;
-    background-color: rgb(243, 237, 220);
+    background-color: rgb(189, 181, 162);
 }
 
 
@@ -139,7 +145,7 @@ header {
 
 .dropbtn {
     display: none;
-    background-color: rgb(243, 237, 220);
+    background-color: rgb(189, 181, 162);
     border: none;
     padding: 14px 16px;
     font-size: 18px;
@@ -162,6 +168,8 @@ header {
     flex-direction: column;
     width: 200px;
     background: rgb(243, 237, 220);
+    color: red;
+    z-index: 20;
   }
 
   .dropdown:hover .topnav {
@@ -612,9 +620,9 @@ form.new-item {
 }
 
 .checkout-form button {
+    font-size: 20px;
     margin-top: 15px;
 }
-
 
 
 
