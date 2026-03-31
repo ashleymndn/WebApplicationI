@@ -10,11 +10,9 @@ export default function render(viewFn, data, ctx) {
         ${session 
             ? `
                 <ul class="topnav">
-                    <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/cart">Cart</a></li>
                     <li><form method="POST" action="/logout"><button class="logout">Logout</button></form></li>   
                 </ul>
-                
                 `
             :   `<a href="/login">Login</a>`}
     `

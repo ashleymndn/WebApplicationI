@@ -442,17 +442,6 @@ form.auth {
 
 
 
-/* form new item*/
-form.new-item {
-    gap: 0 0.5rem;
-    place-self: start;
-    padding: 1rem;
-    background: #ddd;
-    border: 0.5px solid black;
-}
-
-
-
 
 /* cart page */
 .cart-page {

@@ -12,11 +12,10 @@ export function createCart(email) {
         INSERT INTO carts (email) VALUES (?)
     `).run(email);
 
-    // Make sure lastInsertRowid is returned
     return { id: result.lastInsertRowid, email };
 }
 
-// get cart items with product info
+
 export function getCartItems(cartId) {
     return db.prepare(`
         SELECT 
@@ -31,7 +30,7 @@ export function getCartItems(cartId) {
     `).all(cartId);
 }
 
-// get specific item
+
 export function getCartItem(cartId, productId) {
     return db.prepare(`
         SELECT * FROM cart_items 
@@ -39,7 +38,7 @@ export function getCartItem(cartId, productId) {
     `).get(cartId, productId);
 }
 
-// add item
+
 export function addCartItem(cartId, productId, quantity) {
     return db.prepare(`
         INSERT INTO cart_items (cartId, productId, quantity)
@@ -47,7 +46,6 @@ export function addCartItem(cartId, productId, quantity) {
     `).run(cartId, productId, quantity);
 }
 
-// update quantity
 export function updateCartItemQuantity(id, quantity) {
     return db.prepare(`
         UPDATE cart_items SET quantity = ?
@@ -55,7 +53,7 @@ export function updateCartItemQuantity(id, quantity) {
     `).run(quantity, id);
 }
 
-// user has cart
+
 export function ensureCartForUser(email) {
     let cart = getCartByEmail(email);
     if (!cart) {
